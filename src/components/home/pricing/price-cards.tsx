@@ -1,4 +1,4 @@
-import { PricingTier } from '@/constants/pricing-tier';
+import { PricingTier, Tier } from '@/constants/pricing-tier';
 import { IBillingFrequency } from '@/constants/billing-frequency';
 import { FeaturesList } from '@/components/home/pricing/features-list';
 import { PriceAmount } from '@/components/home/pricing/price-amount';
@@ -18,7 +18,7 @@ interface Props {
 export function PriceCards({ loading, frequency, priceMap }: Props) {
   return (
     <div className="isolate mx-auto grid grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-      {PricingTier.map((tier) => (
+      {PricingTier.map((tier: Tier) => (
         <div key={tier.id} className={cn('rounded-lg bg-background/70 backdrop-blur-[6px] overflow-hidden')}>
           <div className={cn('flex gap-5 flex-col rounded-lg rounded-b-none pricing-card-border')}>
             {tier.featured && <FeaturedCardGradient />}
@@ -37,7 +37,9 @@ export function PriceCards({ loading, frequency, priceMap }: Props) {
           </div>
           <div className={'px-8 mt-8'}>
             <Button className={'w-full'} variant={'secondary'} asChild={true}>
-              <Link href={`/checkout/${tier.priceId[frequency.value]}`}>Get started</Link>
+              <Link href={`/checkout/${tier.priceId[frequency.value]}`}>
+                {tier.buttonText}
+              </Link>
             </Button>
           </div>
           <FeaturesList tier={tier} />
