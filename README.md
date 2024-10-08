@@ -8,7 +8,7 @@ This is a complete starter kit that you can use to build and deploy a [Next.js](
 
 ## Demo
 
-See it in action: [https://paddle-billing.vercel.app/](https://paddle-billing.vercel.app/?utm_source=dx&utm_medium=paddle-nextjs-starter-kit)
+See it in action: [https://payment-integration-demo.vercel.app/](https://payment-integration-demo.vercel.app/?utm_source=dx&utm_medium=paddle-nextjs-starter-kit)
 
 ![Illustration showing two screens from the starter kit. On the left is three-tier pricing page. On the right is a subscription page, showing an itemized list of products on the subscription, the next payment, and previous payments.](hero.png)
 
@@ -70,7 +70,7 @@ Then, enter Paddle environment variables:
 | `PADDLE_NOTIFICATION_WEBHOOK_SECRET` | A secret key used for verifying that [webhooks](https://developer.paddle.com/webhooks/notification-destinations?utm_source=dx&utm_medium=paddle-nextjs-starter-kit) came from Paddle and haven't been tampered with in transit. Important for security.                    | Go to [**Paddle > Developer tools > Notifications**](https://sandbox-vendors.paddle.com/notifications), create a new notification destination for your Vercel deploy URL + `/api/webhook`, then edit to copy the secret key. See below for more information. |
 | `NEXT_PUBLIC_PADDLE_ENV`             | Environment for our Paddle account. This should match the kind of Paddle account you signed up for.                                                                                                                                                                        | Enter `sandbox` for sandbox accounts or `production` for live accounts.                                                                                                                                                                                      |
 
-Use `https://<PROJECTNAME>.vercel.app/api/webhook` as the endpoint URL for your notification destination, where `<PROJECTNAME>` is the name of your project in Vercel. For example, `https://paddle-billing.vercel.app/api/webhook`.
+Use `https://<PROJECTNAME>.vercel.app/api/webhook` as the endpoint URL for your notification destination, where `<PROJECTNAME>` is the name of your project in Vercel. For example, `https://payment-integration-demo.vercel.app/api/webhook`.
 
 If your project name isn't unique, your Vercel deploy URL may not match the URL you enter here. We can review and update this after deploy.
 
