@@ -47,7 +47,7 @@ export function LoginForm() {
         if (data?.error) {
           toast({ description: data.error || 'An error occurred during anonymous login', variant: 'destructive' });
         } else if (data?.success) {
-          toast({ description: 'Anonymous login successful', variant: 'success' });
+          toast({ description: 'Anonymous login successful', variant: 'default' });
           router.push('/dashboard'); // Redirect to home page or dashboard
         } else {
           toast({ description: 'Unexpected response from server', variant: 'destructive' });
