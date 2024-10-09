@@ -35,15 +35,24 @@ export async function signInWithGithub() {
 
 export async function loginAnonymously() {
   const supabase = createClient();
-  const { error: signInError } = await supabase.auth.signInAnonymously();
-  const { error: updateUserError } = await supabase.auth.updateUser({
-    email: `anonymous+${Date.now().toString(36)}@example.com`,
-  });
+  
+  // Step 1: Sign in anonymously
+  const { data: signInData, error: signInError } = await supabase.auth.signInAnonymously();
 
-  if (signInError || updateUserError) {
-    return { error: true };
+  if (signInError) {
+    console.error('Anonymous sign-in error:', signInError);
+    return { error: signInError.message };
   }
 
+  // Step 2: Check if the user is actually signed in
+  const { data: { user }, error: getUserError } = await supabase.auth.getUser();
+
+  if (getUserError || !user) {
+    console.error('Get user error:', getUserError);
+    return { error: getUserError?.message || 'Failed to authenticate user' };
+  }
+
+  // If we reach here, the user is successfully logged in
   revalidatePath('/', 'layout');
-  redirect('/');
+  return { success: true };
 }

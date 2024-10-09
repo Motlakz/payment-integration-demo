@@ -2,7 +2,6 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-
 import { createClient } from '@/utils/supabase/server';
 
 interface FormData {
@@ -12,12 +11,17 @@ interface FormData {
 
 export async function signup(data: FormData) {
   const supabase = createClient();
-  const { error } = await supabase.auth.signUp(data);
+  console.log('Attempting signup with email:', data.email);
+  
+  const { data: signupData, error } = await supabase.auth.signUp(data);
 
   if (error) {
-    return { error: true };
+    console.error('Signup error:', error);
+    console.error('Error details:', JSON.stringify(error, null, 2));
+    return { error: error.message };
   }
 
+  console.log('Signup successful:', signupData);
   revalidatePath('/', 'layout');
   redirect('/');
 }
