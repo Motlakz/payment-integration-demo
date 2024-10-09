@@ -1,6 +1,6 @@
 export interface Tier {
   name: string;
-  id: "sweet_serenade" | "eternal_love" | "cupids_arrow";
+  id: "pro_01j9pcwbx7bdf73fgy04vb0rwr" | "pro_01j9prsnzypte5bpcx7snfmwa9" | "pro_01j9prxq0cyt7z9p91e9n2rgab";
   icon: string;
   description: string;
   features: string[];
@@ -12,7 +12,7 @@ export interface Tier {
 export const PricingTier: Tier[] = [
   {
     name: 'Sweet Serenade',
-    id: 'sweet_serenade',
+    id: 'pro_01j9pcwbx7bdf73fgy04vb0rwr',
     icon: '/assets/icons/price-tiers/free-icon.svg',
     description: 'Ideal for individuals who want to get started with simple design tasks.',
     features: [
@@ -27,7 +27,7 @@ export const PricingTier: Tier[] = [
   },
   {
     name: 'Eternal Love',
-    id: 'eternal_love',
+    id: 'pro_01j9prsnzypte5bpcx7snfmwa9',
     icon: '/assets/icons/price-tiers/basic-icon.svg',
     description: 'Enhanced design tools for scaling teams who need more flexibility.',
     features: [
@@ -42,7 +42,7 @@ export const PricingTier: Tier[] = [
   },
   {
     name: "Cupid's Arrow",
-    id: 'cupids_arrow',
+    id: 'pro_01j9prxq0cyt7z9p91e9n2rgab',
     icon: '/assets/icons/price-tiers/pro-icon.svg',
     description: 'Powerful tools designed for extensive collaboration and customization.',
     features: [
