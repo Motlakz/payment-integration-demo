@@ -7,10 +7,11 @@ import { TransactionResponse } from '@/lib/api.types';
 
 export async function getTransactions(subscriptionId: string, after: string): Promise<TransactionResponse> {
   try {
-    const customerId = await getCustomerId();
-    if (customerId) {
+    const paddleCustomerId = await getCustomerId();
+
+    if (paddleCustomerId) {
       const transactionCollection = getPaddleInstance().transactions.list({
-        customerId: [customerId],
+        customerId: [paddleCustomerId],
         after: after,
         perPage: 10,
         status: ['billed', 'paid', 'past_due', 'completed', 'canceled'],

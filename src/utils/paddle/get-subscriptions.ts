@@ -7,18 +7,28 @@ import { getErrorMessage } from '@/utils/paddle/data-helpers';
 
 export async function getSubscriptions(): Promise<SubscriptionResponse> {
   try {
-    const customerId = await getCustomerId();
-    if (customerId) {
-      const subscriptionCollection = getPaddleInstance().subscriptions.list({ customerId: [customerId], perPage: 20 });
-      const subscriptions = await subscriptionCollection.next();
-      return {
-        data: subscriptions,
-        hasMore: subscriptionCollection.hasMore,
-        totalRecords: subscriptionCollection.estimatedTotal,
-      };
+    const paddleCustomerId = await getCustomerId();
+
+    if (!paddleCustomerId) {
+      console.error('No Paddle customer ID found');
+      return { data: [], hasMore: false, totalRecords: 0 };
     }
+
+    const paddle = getPaddleInstance();
+    const subscriptionCollection = paddle.subscriptions.list({ 
+      customerId: [paddleCustomerId], 
+      perPage: 20 
+    });
+
+    const subscriptions = await subscriptionCollection.next();
+
+    return {
+      data: subscriptions,
+      hasMore: subscriptionCollection.hasMore,
+      totalRecords: subscriptionCollection.estimatedTotal,
+    };
   } catch (e) {
+    console.error('Error retrieving subscriptions:', e);
     return getErrorMessage();
   }
-  return getErrorMessage();
 }

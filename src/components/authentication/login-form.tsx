@@ -21,21 +21,22 @@ export function LoginForm() {
       toast({ description: 'Please enter both email and password', variant: 'destructive' });
       return;
     }
-
+  
     setIsLoading(true);
-    try {
-      login({ email, password })
-        .then((data) => {
-          if (data?.error) {
-            toast({ description: data.error || 'An error occurred during login', variant: 'destructive' });
-          }
-        })
-        .finally(() => setIsLoading(false));
-    } catch (error) {
-      console.error('Login error:', error);
-      toast({ description: 'Network error occurred. Please try again.', variant: 'destructive' });
-      setIsLoading(false);
-    }
+    login({ email, password })
+      .then((data) => {
+        if (data?.error) {
+          toast({ description: data.error || 'An error occurred during login', variant: 'destructive' });
+        } else {
+          // Optionally, you can add a success toast here
+          toast({ description: 'Login successful!', variant: 'default' });
+        }
+      })
+      .catch((error) => {
+        console.error('Login error:', error);
+        toast({ description: 'Network error occurred. Please try again.', variant: 'destructive' });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleAnonymousLogin() {
@@ -70,13 +71,13 @@ export function LoginForm() {
         Log in to your account
       </div>
       <Button 
-        onClick={() => handleAnonymousLogin()} 
-        type={'button'} 
+        onClick={handleLogin} // Change from formAction to onClick
+        type={'submit'} 
         variant={'secondary'} 
-        className={'w-full mt-6'}
+        className={'w-full'}
         disabled={isLoading}
       >
-        {isLoading ? 'Logging in...' : 'Log in as Guest'}
+        {isLoading ? 'Logging in...' : 'Log in'}
       </Button>
       <div className={'flex w-full items-center justify-center'}>
         <Separator className={'w-5/12 bg-border'} />

@@ -8,17 +8,6 @@ interface FormData {
   email: string;
   password: string;
 }
-export async function login(data: FormData) {
-  const supabase = createClient();
-  const { error } = await supabase.auth.signInWithPassword(data);
-
-  if (error) {
-    return { error: true };
-  }
-
-  revalidatePath('/', 'layout');
-  redirect('/');
-}
 
 export async function signInWithGithub() {
   const supabase = createClient();
@@ -55,4 +44,17 @@ export async function loginAnonymously() {
   // If we reach here, the user is successfully logged in
   revalidatePath('/', 'layout');
   return { success: true };
+}
+
+export async function login(data: FormData) {
+  const supabase = createClient();
+  const { error } = await supabase.auth.signInWithPassword(data);
+
+  if (error) {
+    console.error('Login error:', error.message); // Log the error message
+    return { error: error.message }; // Return the error message
+  }
+
+  revalidatePath('/', 'layout');
+  redirect('/');
 }
